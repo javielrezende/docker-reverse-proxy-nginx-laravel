@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+    laravel:
+        build:
+            context: ./instalando-laravel-imagem
+            dockerfile: Dockerfile.prod
+        image: javielrezende/laravel:prod
+        container_name: laravel
+        networks: 
+            - laranet
+    
+    nginx:
+        build:
+            context: ./proxy-reverso-com-nginx
+            dockerfile: Dockerfile.prod
+        image: javielrezende/nginx:prod
+        container_name: nginx
+        networks: 
+            - laranet
+        ports: 
+            - "8080:80"
+
+networks:
+    laranet:
+        driver: bridge
